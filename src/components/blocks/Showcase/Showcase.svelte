@@ -152,7 +152,6 @@
 <style lang="less">
     .showcase {
         list-style-type: none;
-        min-height: 466px;
         margin: 32px 0;
         padding: 0;
         display: grid;

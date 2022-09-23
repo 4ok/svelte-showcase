@@ -80,11 +80,8 @@
 
 <style lang="less">
     .wrapper {
-        height: 300px;
-        min-height: 300px;
-        width: 100%;
         position: relative;
-        // padding-top: 75%; // height depending on width. Format: 4/3
+        padding-top: 100%; // height depending on width.
     }
 
     .img {
