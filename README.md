@@ -1,4 +1,11 @@
-# Svelte + TS + Vite
+# Запуск проекта
+--------------
+`npm run dev` - запуск проекта в режиме разработки
+`npm run build` - сборка проекта
+`npm run check` - проверка кода
+
+-----------------
+## Svelte + TS + Vite
 
 This template should help get you started developing with Svelte and TypeScript in Vite.
 
