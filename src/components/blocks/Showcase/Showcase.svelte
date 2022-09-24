@@ -11,11 +11,11 @@
     let showcaseElement: HTMLElement;
     let showcaseTop = 0;
     let showcaseHeight = 0;
+    let showcaseGap = 0;
     let cardHeight = 0;
     let showCardTimerId: ReturnType<typeof setTimeout>;
     let resizeTimerId: ReturnType<typeof setTimeout>;
     let loading = true;
-    let isUserStartedAction = false;
     let items: CardType[] = [];
 
     async function addCard() {
@@ -24,12 +24,13 @@
         items = items;
     }
 
+    // Getting first card
+    addCard();
+
     $: if (items.length) {
         calcCardHeight();
         resetTimerShowCard();
     }
-
-    addCard();
 
     function handleCardImageFinally() {
         loading = false;
@@ -42,7 +43,6 @@
             return;
         }
 
-        isUserStartedAction = true;
         loading = true;
 
         addCard();
@@ -66,15 +66,8 @@
      */
     async function calcCardHeight() {
         await tick();
-        const styleGap = window
-            .getComputedStyle(showcaseElement)
-            .getPropertyValue('gap');
-
-        const gapNumber = parseInt(styleGap, 10) || 0;
-        showcaseTop = showcaseElement.offsetTop;
-
         const lastCardElement: HTMLElement = showcaseElement.querySelector('.card');
-        cardHeight = lastCardElement.offsetHeight + gapNumber;
+        cardHeight = lastCardElement.offsetHeight + showcaseGap;
     }
 
     function scrollToLastCard() {
@@ -93,15 +86,20 @@
      */
     function resizeObserverShowcase() {
         const resizeObserver = new ResizeObserver(() => {
-            if (isUserStartedAction) {
-                requestAnimationFrame(scrollToLastCard);
-            }
+            requestAnimationFrame(scrollToLastCard);
         });
 
         resizeObserver.observe(showcaseElement);
     }
 
     onMount(() => {
+        const styleGap = window
+            .getComputedStyle(showcaseElement)
+            .getPropertyValue('gap');
+
+        showcaseGap = parseInt(styleGap, 10) || 0;
+        showcaseTop = showcaseElement.offsetTop;
+
         resizeObserverShowcase();
 
         // Disable or enable timer depending on the tab activity
