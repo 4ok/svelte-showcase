@@ -114,17 +114,24 @@
     bind:this={showcaseElement}
     bind:offsetHeight={showcaseHeight}
 >
-    {#each items as data, index (data.id)}
+    {#each items as data, index}
         {@const isLastItem = index === items.length - 1}
+        {@const cardProps = {
+            title: data.title,
+            extra: data.extra,
+            desc: data.desc,
+            tags: data.tags,
+            image: data.image,
+        }}
 
         <li class="item" transition:fade>
             {#if isLastItem}
                 <Card
-                    {...data}
+                    {...cardProps}
                     on:imageFinally|once={handleCardImageFinally}
                 />
             {:else}
-                <Card {...data} />
+                <Card {...cardProps} />
             {/if}
 
             {#if isLastItem}
