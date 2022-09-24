@@ -90,7 +90,7 @@
     function resizeObserverShowcase() {
         const resizeObserver = new ResizeObserver(() => {
             if (isUserStartedAction) {
-                scrollToLastCard();
+                requestAnimationFrame(scrollToLastCard);
             }
         });
 
