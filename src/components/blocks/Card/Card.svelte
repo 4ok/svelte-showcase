@@ -1,7 +1,7 @@
 <script lang="ts">
     import Image from "../Image/Image.svelte";
     import type { CardImage } from "../Showcase/api";
-    import Tags, { type Tag } from "../Tags/Tags.svelte";
+    import Tags from "../Tags/Tags.svelte";
 
     /** @type {CardImage} Props for "Image" component */
     export let image: CardImage;
@@ -17,12 +17,6 @@
 
     /** @type {string} Tags, comma-separated string */
     export let tags: string;
-
-    let tagsList: Tag[];
-
-    $: tagsList = tags
-        .split(',')
-        .map(str => str.trim());
 </script>
 
 <section class="card">
@@ -44,7 +38,7 @@
             {desc}
         </div>
 
-        <Tags list={tagsList} />
+        <Tags tags={tags} />
     </div>
 </section>
 

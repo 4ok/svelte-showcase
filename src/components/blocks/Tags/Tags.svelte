@@ -1,13 +1,17 @@
 <script context="module" lang="ts">
     import colors from './colors';
 
-    export type Tag = string;
-
     const countColors = colors.length;
 </script>
 
 <script lang="ts">
-    export let list: Tag[];
+    export let tags: string;
+
+    let list: string[];
+
+    $: list = tags
+        .split(',')
+        .map(str => str.trim());
 </script>
 
 <div class="tags">
