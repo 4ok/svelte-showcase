@@ -26,7 +26,7 @@
 
     $: if (items.length) {
         calcCardHeight();
-        setTimer();
+        resetTimerShowCard();
     }
 
     addCard();
@@ -38,7 +38,7 @@
     async function handleClickNewCard() {
         // If last image in the list is not loaded, start the timer again
         if (loading) {
-            setTimer();
+            resetTimerShowCard();
             return;
         }
 
@@ -46,14 +46,18 @@
         loading = true;
 
         addCard();
-        setTimer();
+        resetTimerShowCard();
+    }
+
+    function clearTimerShowCard() {
+        clearTimeout(showCardTimerId);
     }
 
     /*
      * Set the timer to show a new "Card"
      */
-    function setTimer() {
-        clearTimeout(showCardTimerId);
+    function resetTimerShowCard() {
+        clearTimerShowCard();
         showCardTimerId = setTimeout(handleClickNewCard, SHOW_CARD_TIMEOUT);
     }
 
@@ -99,7 +103,21 @@
 
     onMount(() => {
         resizeObserverShowcase();
-    })
+
+        // Disable or enable timer depending on the tab activity
+        document.addEventListener('visibilitychange', () => {
+            switch (document.visibilityState) {
+                case 'hidden': {
+                    clearTimerShowCard();
+                    break;
+                }
+                case 'visible': {
+                    resetTimerShowCard();
+                    break;
+                } 
+            }
+        })
+    });
 
     onDestroy(() => {
         clearTimeout(showCardTimerId)
