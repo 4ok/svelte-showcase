@@ -166,22 +166,28 @@
 {/each}
 
 <style lang="less">
+    // vars
+    @gap: 24px;
+    @add-button-width: 40px;
+
     .showcase {
         list-style-type: none;
         margin: 32px 0;
         padding: 0;
         display: grid;
-        gap: 24px;
-        grid-template-columns: 33.33% 33.33% 33.33%;
-        width: calc(100% - 60px);
+        gap: @gap;
+        // 3 columns
+        grid-template-columns: repeat(3, calc(33.33% - @gap));
+        width: calc(100% - @add-button-width);
 
         @media (max-width: 1200px) {
-            grid-template-columns: 50% 50%;
+            // 2 columns
+            grid-template-columns: repeat(2, calc(50% - @gap));
         }
 
         @media (max-width: 800px) {
+            // 1 columns
             grid-template-columns: 1fr;
-            width: 100%;
             margin-bottom: 80px;
         }
     }
@@ -194,7 +200,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: -60px;
+        right: -(@gap + @add-button-width);
         background: #28a745;
         width: 40px;
         height: 40px;
