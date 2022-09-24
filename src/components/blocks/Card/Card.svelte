@@ -3,8 +3,7 @@
     import type { CardImage } from "../Showcase/api";
     import Tags, { type Tag } from "../Tags/Tags.svelte";
 
-
-    /** @type {Image} Props for "Image" component */
+    /** @type {CardImage} Props for "Image" component */
     export let image: CardImage;
 
     /** @type {string} Title */

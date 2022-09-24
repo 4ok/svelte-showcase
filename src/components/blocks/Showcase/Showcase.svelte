@@ -2,7 +2,7 @@
     import { onMount, onDestroy, tick } from 'svelte';
     import { fade } from 'svelte/transition';
     import Card from '../Card/Card.svelte';
-    import { loadCard } from './api';
+    import { loadCard, type Card as CardType } from './api';
 
     const SHOW_CARD_TIMEOUT = 30 * 1000; // 30 sec
 
@@ -16,7 +16,7 @@
     let resizeTimerId: ReturnType<typeof setTimeout>;
     let loading = true;
     let isUserStartedAction = false;
-    let items = [];
+    let items: CardType[] = [];
 
     async function addCard() {
         const item = await loadCard();
@@ -116,23 +116,16 @@
 >
     {#each items as data, index}
         {@const isLastItem = index === items.length - 1}
-        {@const cardProps = {
-            title: data.title,
-            extra: data.extra,
-            desc: data.desc,
-            tags: data.tags,
-            image: data.image,
-        }}
 
         <li class="item" transition:fade>
-            {#if isLastItem}
-                <Card
-                    {...cardProps}
-                    on:imageFinally|once={handleCardImageFinally}
-                />
-            {:else}
-                <Card {...cardProps} />
-            {/if}
+            <Card
+                title={data.title}
+                extra={data.extra}
+                desc={data.desc}
+                tags={data.tags}
+                image={data.image}
+                on:imageFinally|once={handleCardImageFinally}
+            />
 
             {#if isLastItem}
                 <button

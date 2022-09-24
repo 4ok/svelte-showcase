@@ -15,7 +15,7 @@ export interface CardImage {
     caption: string
 }
 
-interface Card {
+export interface Card {
     id: number;
     image: CardImage;
     title: string;
