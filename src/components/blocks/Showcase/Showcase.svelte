@@ -86,7 +86,10 @@
      */
     function resizeObserverShowcase() {
         const resizeObserver = new ResizeObserver(() => {
-            requestAnimationFrame(scrollToLastCard);
+            // Do not scroll when just resize, waiting for drawing more one card
+            if (items.length > 1) {
+                requestAnimationFrame(scrollToLastCard);
+            }
         });
 
         resizeObserver.observe(showcaseElement);
