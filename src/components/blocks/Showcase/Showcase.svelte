@@ -187,8 +187,9 @@
 
         @media (max-width: 800px) {
             // 1 columns
-            grid-template-columns: 1fr;
+            grid-template-columns: 100%;
             margin-bottom: 80px;
+            width: 100%;
         }
     }
 
